@@ -1,3 +1,54 @@
-.category{
-    width: 250px;
+hr{
+    margin: 1.5em 0;
+    border: 0; border-top: 1px solid #CDDAF3;
+}
+
+p{
+    margin: 0.5em 1em;
+}
+
+h4{
+    margin: 0.5em 0;
+}
+
+.report-categories{
+    display: flex
+}
+
+.report-categories p {
+    margin: 0 1em;
+}
+
+.categories-container{
+    width: 230px;
+    padding: 1.5em;
+    border-radius: 25px;
+    background-color: white;
+    /* border: 1px solid black; */
+}
+
+.categories-container:hover{
+    /* border: none; */
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    cursor: pointer;
+}
+
+.grid-categories{
+    padding-top: 3em;
+}
+
+.categories-color{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: relative;
+    top: -45px;
+    left: 15px;
+    background-color: cadetblue;
+    margin-bottom: -40px;
+}
+
+.categories-footer{
+    display: flex;
+    justify-content: space-between;
 }

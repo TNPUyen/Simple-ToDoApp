@@ -1,7 +1,7 @@
 .Sidebar{
-    width: 150px;
+    width: 300px;
     height: 100%;
     z-index: 1;
-    /* position: fixed; */
+    position: fixed;
     background-color: tomato;
 }

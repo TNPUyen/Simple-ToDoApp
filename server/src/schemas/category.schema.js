@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
     title: String,
-    userId: String,
+    // userId: String,
     taskList: [String],
 })
 

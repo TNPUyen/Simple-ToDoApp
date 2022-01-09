@@ -6,6 +6,7 @@ export function getAllCategories(){
 }
 
 export function addNewCategory(newCategory){
+    console.log(newCategory)
     return axios.post(apiURL, newCategory);
 }
 

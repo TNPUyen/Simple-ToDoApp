@@ -1,10 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;800;900&display=swap');
 body, html{
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background-color: #F2F3F7;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 .App{
     width: 100vw;
     height: 100vh;
+}
+
+.container{
+    padding: 0 30px;
+    /* height: 90vh; */
+    background-color: #F2F3F7;
+    margin-left: 300px;
 }

@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.post("/", async (req, res) =>{
     try {
-        const newCategory = await new Category(req.body).save();
+        const newCategory = await new CategoryModel(req.body).save();
+        console.log(newCategory.title);
         res.send(newCategory);
     } catch (error) {
         res.send(error);

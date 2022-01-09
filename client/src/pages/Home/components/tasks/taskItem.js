@@ -44,7 +44,7 @@ class TaskItem extends Tasks{
             return (
                 <ListItem className='flex task_container'>
                     <label className={task.completed?'task active':'task'}>
-                        <Checkbox checked={task.completed} onClick={() => checkComplete(task._id)}></Checkbox>
+                        <Checkbox checked={task.completed} size="small" onClick={() => checkComplete(task._id)}></Checkbox>
                         {task.taskName}
                     </label>
                     <button className='btn-edit' disabled={task.completed} onClick={() => this.handleOnEdit(task)}>Edit</button>

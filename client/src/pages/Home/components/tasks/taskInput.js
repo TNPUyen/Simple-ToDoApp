@@ -1,16 +1,37 @@
 import React from 'react';
-import { TextField } from '@mui/material';
+import { TextField, Dialog, DialogTitle, DialogContent, DialogActions, Button} from '@mui/material';
 import Tasks from '../../../../actions/taskActions';
-
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 class TaskInput extends Tasks{
-
+    state = {isOpen: false, currentTask: "",}
+    handleClickOpen = () => {
+        this.setState({isOpen: true});
+    };
+    
+    handleClose = () => {
+        this.setState({isOpen: false});
+    };
     render(){
+        const open = this.state.isOpen;
         return(
-            <form autoComplete="off" onSubmit={()=> this.handleAddTask(this.props.categoryId)}>
-                <TextField placeholder="What to do?" name="todos" id="todos" size="small" variant="standard" value={this.state.currentTask} required={true} onChange={this.handleChangeTask} className="input-newTask"/>          
-                <button type="submit">Create</button>
-            </form>
+            <div>
+                <button type="submit" id='btn-addNew' onClick={this.handleClickOpen}><AddOutlinedIcon/></button>
+                <Dialog open={open} onClose={this.handleClose}>
+                    <DialogTitle>Add new task</DialogTitle>
+                    <form autoComplete="off" onSubmit={()=> this.handleAddTask(this.props.categoryId)}>
+                        <DialogContent>
+                            <TextField label="What to do?" name="todos" id="standard-size-small" size="small" fullWidth variant="standard" value={this.state.currentTask} required={true} onChange={this.handleChangeTask} className="input-newTask"/>
+                            {/* <TextField label="What to do?" name="todos" id="standard-size-small" fullWidth variant="standard" value={this.state.currentTask} required={true} onChange={this.handleChangeTask} className="input-newTask"/> */}
+                            <DialogActions>
+                                <Button onClick={this.handleClose}>Cancel</Button>
+                                <Button onClick={this.handleClose} type='submit'>Add New</Button>
+                        </DialogActions>        
+                        </DialogContent>
+                       
+                    </form>
+                </Dialog>
+            </div>
         );
     }
 };

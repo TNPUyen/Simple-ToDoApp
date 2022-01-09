@@ -2,12 +2,16 @@ import React, {Component} from 'react';
 import {addNewTask, getAllTask, updateTask, deleteTask} from '../services/taskService';
 
 class Tasks extends Component{
-    state = {tasks: [], currentTask: "",}
+    state = {tasks: [], currentTask: "", filterList: []}
 
     async componentDidMount(){
         try {
             const {data} = await getAllTask();
-            this.setState({tasks: data});
+            if(data != null){
+                this.setState({tasks: data, filterList: data});
+            }else{
+                this.setState({tasks: [], filterList: []});
+            }
         } catch (error) {
             console.log(error);
         }
@@ -18,18 +22,19 @@ class Tasks extends Component{
     }
 
     handleAddTask = async (currentCategory) =>{
-        // e.preventDefault();
+        // currentCategory.preventDefault();
+        console.log(currentCategory)
         const originalTasks = this.state.tasks;
         try {
             const newTask = {
                 taskName: this.state.currentTask,
                 category: currentCategory,
-
             }
             const {data} = await addNewTask(newTask);
+            
             const tasks = originalTasks;
             tasks.push(data);
-            this.setState({tasks, currentTask: ""});
+            this.setState({tasks, currentTask: "", filterList: tasks});
         } catch (error) {
             console.log(error);
         }
@@ -43,8 +48,10 @@ class Tasks extends Component{
             tasks[index].completed = !tasks[index].completed;
             this.setState({tasks});
             await updateTask(currentTask, {completed: tasks[index].completed});
+            const {data} = await getAllTask();
+            this.setState({filterList: data});
         } catch (error) {
-            this.setState({tasks: originalTasks});
+            this.setState({tasks: this.state.filterList});
             console.log(error);
         }
     }
@@ -57,8 +64,10 @@ class Tasks extends Component{
             );
             this.setState({tasks});
             await deleteTask(currentTask);
+            const {data} = await getAllTask();
+            this.setState({filterList: data});
         } catch (error) {
-            this.setState({tasks: originalTasks});
+            this.setState({tasks: originalTasks, filterList: originalTasks});
             console.log(error);
         }
     }

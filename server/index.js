@@ -13,6 +13,8 @@ app.use(bodyParser.json());
 
 app.use("/api/task", require('./src/routes/task.route'));
 app.use("/api/category", require('./src/routes/category.route'));
+app.use("/api/categoryTask", require('./src/routes/categoryTask.route'));
+
 
 
 

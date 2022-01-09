@@ -1,52 +1,75 @@
-.dashboard-container{
-    padding: 0;
-    height: 100vh;
-    background-color: coral;
-    /* margin: 48px 0 0 0; */
-}
-
-.category-container{
-    max-width: 500px;
-    width: 100%;
-    margin: 125px auto;
-    padding: 15px;
-}
-
-/* .heading-row{
-    display: flex;
-    justify-content: space-between;
+/* .dashboard-container{
+    padding: 0 30px;
+    background-color: #FAFBFD;
+    margin-left: 300px;
 } */
 
-h1{
+.header{
+    padding: 30px 0;
+}
+
+.today-content{
+    /* display: flex; */
+    /* width: 100%;
+    height: 100%; */
+    padding-bottom: 50px;
+}
+.layout-padding{
+    padding-right: 16px;
+}
+
+
+.weekly-pinned-container{
+    width: 100%;
+    max-width: 750px;
+
+}
+
+h1, h2, h5{
     margin: 0;
-    text-align: center;
-    /* display: inline-block; */
+    display: inline-block;
+}
+
+h5{
+    line-height: 37.6px;
+    float: right;
+}
+h2{
+    line-height: 37.6px;
 }
 
 form{
-    width: 100%;
-    height: 40px;
+    /* width: 100%;
+    height: 40px; */
     margin: 20px 0;
     display: flex;
 }
 
-.input-newTask, form button{
-    flex: 4;
+form button{
+    /* flex: 4; */
     border: none;
     outline: none;
     margin: 0 5px;
 }
 
-form button{
-    flex: 1;
-    background-color: #555;
-    color: white;
+#btn-addNew{
+    /* flex: 1; */
+    border: none;
+    outline: none;
+    background-color: #ffd261;
+    color: #0a0a0a;
     letter-spacing: 2px;
     cursor: pointer;
+    position: relative;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    top: -45px;
+    float: right;
 }
 
-form button:hover{
-    background-color: #333;
+#btn-addNew:hover{
+    background-color: rgb(250, 208, 101);
 }
 
 
