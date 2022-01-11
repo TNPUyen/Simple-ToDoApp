@@ -5,6 +5,9 @@ import Sidebar from './components/sidebar/sideBar.';
 import Categories from './pages/Categories/Categories';
 import Dashboard from './pages/Home/dashboard';
 import Shared from './pages/Shared/Shared';
+import Login from './pages/Login/login';
+import Register from './pages/Register/register';
+
 
 function App() {
   return (
@@ -16,6 +19,8 @@ function App() {
               {/* <Route path='/' element={<Dashboard/>}/> */}
               <Route path='/' element={<Categories/>}/>
               <Route path='/Shared' element={<Shared/>}/>
+              <Route path='/Login' element={<Login/>}/>
+              <Route path='/Register' element={<Register/>}/>
             </Routes>
       </BrowserRouter>
     </div>

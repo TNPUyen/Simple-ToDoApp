@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
 import {addNewTask, getAllTask, updateTask, deleteTask} from '../services/taskService';
 
 class Tasks extends Component{
-    state = {tasks: [], currentTask: "", filterList: []}
+    state = {tasks: [], currentTask: "", filterList: [], editValue: ""}
 
     async componentDidMount(){
         try {
@@ -23,7 +23,6 @@ class Tasks extends Component{
 
     handleAddTask = async (currentCategory) =>{
         // currentCategory.preventDefault();
-        console.log(currentCategory)
         const originalTasks = this.state.tasks;
         try {
             const newTask = {
@@ -45,6 +44,23 @@ class Tasks extends Component{
             const tasks = [...originalTasks];
             const index = tasks.findIndex((task) => task._id === currentTask);
             tasks[index] = {...tasks[index]};
+            tasks[index].taskName = this.state.editValue;
+            this.setState({tasks});
+            await updateTask(currentTask, {taskName: this.state.editValue,});
+            const {data} = await getAllTask();
+            this.setState({filterList: data});
+        } catch (error) {
+            this.setState({tasks: this.state.filterList});
+            console.log(error);
+        }
+    }
+    
+    handleCheckTask = async (currentTask) => {
+        const originalTasks = this.state.tasks;
+        try {
+            const tasks = [...originalTasks];
+            const index = tasks.findIndex((task) => task._id === currentTask);
+            tasks[index] = {...tasks[index]};
             tasks[index].completed = !tasks[index].completed;
             this.setState({tasks});
             await updateTask(currentTask, {completed: tasks[index].completed});
@@ -55,7 +71,6 @@ class Tasks extends Component{
             console.log(error);
         }
     }
-
     handleDeleteTask = async(currentTask) => {
         const originalTasks = this.state.tasks;
         try {

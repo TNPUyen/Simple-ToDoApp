@@ -9,9 +9,6 @@
 }
 
 .today-content{
-    /* display: flex; */
-    /* width: 100%;
-    height: 100%; */
     padding-bottom: 50px;
 }
 .layout-padding{
@@ -65,6 +62,7 @@ form button{
     width: 50px;
     height: 50px;
     top: -45px;
+    right: 35px;
     float: right;
 }
 
@@ -73,26 +71,11 @@ form button{
 }
 
 
-/* ul li{
-    list-style: none;
-    border: 1px solid #ccc;
-    margin: 10px 0;
-    padding: 10px 10px 10px 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-} */
-
-/* ul li .active{
-    opacity: 0.5;
-    text-decoration: line-through;
-} */
-
 .btn-edit, .btn-update, .footer-row button{
     border: none;
     outline: none;
-    color: white;
-    background-color: orange;
+    color: #222222;
+    background-color: #ffd261;
     padding: 5px 15px;
     cursor: pointer;
 }
@@ -103,7 +86,7 @@ form button{
 }
 
 .btn-edit:hover{
-    background-color: rgba(255, 166, 0, 0.897);
+    background-color: rgb(243, 192, 64);
 }
 
 .btn-update{
@@ -129,11 +112,11 @@ form button{
 
 
 .footer-row button{
-    background-color: crimson;
+    background-color: #ed553b;
 }
 
 .footer-row button:hover{
-    background-color: rgb(185, 19, 53);
+    background-color: #d44a32;
 }
 
 .footer-row{

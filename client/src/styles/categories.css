@@ -52,3 +52,58 @@ h4{
     display: flex;
     justify-content: space-between;
 }
+
+
+
+/* Category Task CSS */
+.categoryTask-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 1em 1em;
+    border-bottom: 1px solid #CDDAF3;
+}
+
+.header-content> p{
+    margin: 0;
+}
+
+.categoryTask-content{
+    padding: 1em;
+}
+
+.btn-addNewCategoryTask, .btn-deleteCategory{
+    border: none;
+    outline: none;
+    color: #0a0a0a;
+    letter-spacing: 2px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 50%;
+    float: right;
+    padding: 0;
+}
+
+.btn-addNewCategoryTask{
+    background-color: #3ca36f;   
+    left: -60px;
+    top: -32px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: -2.2em;
+}
+
+.btn-addNewCategoryTask:hover{
+    background-color: #368d61;
+}
+
+.btn-deleteCategory{
+    color: #ed553b;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    /* left: 15px; */
+}
+
+.btn-deleteCategory:hover{
+    color: #ce4831;
+}

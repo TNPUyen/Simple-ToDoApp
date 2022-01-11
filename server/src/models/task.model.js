@@ -14,5 +14,6 @@ class TaskModel{
         this.pinned = pinned;
         this.date = date;
         this.completed = completed;
+        this.userId = "";
     }
 }

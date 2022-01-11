@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react';
 import CategoriesActions from '../../../actions/categoriesActions';
-import { TextField, Dialog, DialogTitle, DialogContent, DialogActions, Button, Checkbox} from '@mui/material';
+import { TextField, Dialog, DialogTitle, DialogContent, DialogActions, Button} from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 export default class CategoriesInput extends CategoriesActions {
@@ -20,7 +20,7 @@ export default class CategoriesInput extends CategoriesActions {
                 <h1>Categories</h1>
                 <button type="submit" onClick={this.handleClickOpen}><AddOutlinedIcon /></button>
                 <Dialog open={open} onClose={this.handleClose}>
-                    <DialogTitle>Add new task</DialogTitle>
+                    <DialogTitle>Add new category</DialogTitle>
                     <form autoComplete="off" onSubmit={()=> this.handleAddCategory()}>
                         <DialogContent>
                             <TextField label="Category Name" name="category" id="standard-size-small" size="small" fullWidth variant="standard" value={this.state.currentCategory} required={true} onChange={this.handleChangeCategory} className="input-newTask"/>

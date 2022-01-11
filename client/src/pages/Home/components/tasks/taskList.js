@@ -8,10 +8,11 @@ import TaskItem from './taskItem';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import TaskFooter from './taskFooter';
 
 
 class TaskList extends Tasks{
-    state = {tasks: [], checkAll: false, currentButton: 0, totalTask: 0};
+    state = {tasks: [], checkAll: false, currentButton: 0, totalTaskToDo: 0};
 
     handleCheckAll = () => {
         const tasks = this.state.tasks;
@@ -49,15 +50,16 @@ class TaskList extends Tasks{
 
     totalTaskToDo = () =>{
         const newTaskList = this.state.tasks.filter((task) => {
-            return task.completed === true;
+            return task.completed === false;
         });
-        this.setState({totalTask: newTaskList.length})
+        // this.setState({totalTaskToDo: newTaskList.length});
+        return newTaskList.length;
     }
 
     render(){
         const {tasks} = this.state;
-
-        const switchComplete = id => this.handleUpdateTask(id)
+        const taskToDo = this.totalTaskToDo();
+        const switchComplete = id => this.handleCheckTask(id)
         return(
             <div>
                 <div>
@@ -77,14 +79,7 @@ class TaskList extends Tasks{
                         <TaskItem task ={task} key={task._id} checkComplete={switchComplete}/>
                     ))}
                 </List>
-                <div className="footer-row">
-                    <label>
-                        <Checkbox id="all" name="all" size="small" onClick={() => this.handleCheckAll()}></Checkbox>
-                        All
-                    </label>
-                    <p>{this.state.totalTask} to do</p>
-                    <button id="Delete" onClick={this.handleOnDelete}>Delete</button>
-                </div>
+                <TaskFooter handleCheckAll = {this.handleCheckAll} handleDeleteTask = {this.handleOnDelete} taskToDo = {taskToDo}/>
             </div>
          );
     };
