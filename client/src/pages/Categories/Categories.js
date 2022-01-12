@@ -7,7 +7,7 @@ import CategoriesInput from './components/categoriesInput';
 
 export default function Categories() {
     return (
-        <div className="container">
+        <div>
             <CategoriesInput />
             <hr></hr>
             <div className='report-categories'>

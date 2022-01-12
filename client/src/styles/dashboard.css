@@ -70,6 +70,15 @@ form button{
     background-color: rgb(250, 208, 101);
 }
 
+.checkbox-today{
+    display: flex;
+}
+
+.checkbox-today p{
+    margin: 10px 0;
+    font-size: 18px;
+}
+
 
 .btn-edit, .btn-update, .footer-row button{
     border: none;
@@ -90,10 +99,10 @@ form button{
 }
 
 .btn-update{
-    background-color: rgba(14, 109, 14, 0.863);
+    background-color: #3ca36f;
 }
 .btn-update:hover{
-    background-color: rgba(10, 85, 10, 0.863);
+    background-color: #368d61;
 }
 
 .task_container{

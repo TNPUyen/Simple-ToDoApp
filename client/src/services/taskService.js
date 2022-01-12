@@ -1,12 +1,21 @@
 import axios from 'axios';
+// import { useState } from 'react';
 const apiURL =  "http://localhost:8080/api/task";
+// const [alert, setAlert] = useState(false);
 
 export function getAllTask(){
     return axios.get(apiURL);
 }
 
-export function addNewTask(newTask){
+export function getTodayTask(){
+    return axios.get(apiURL + '/today');
+}
+
+export async function addNewTask(newTask){
     return axios.post(apiURL, newTask);
+    // await axios.post(apiURL, newTask).then(response => {
+    //     console.log(response.data);
+    // });
 }
 
 export function updateTask(id, task){

@@ -24,7 +24,7 @@ class TaskItem extends Tasks{
     handleOnSave = (task) => {
         this.setState({onEdit: !this.state.onEdit});
         task.taskName = this.state.editValue;
-        this.handleUpdateTask(task._id, task);
+        this.handleUpdateTask(task._id, this.props.today);
      }
     handleOnChange = (value) => {
         this.setState({editValue: value})

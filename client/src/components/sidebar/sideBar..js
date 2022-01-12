@@ -1,63 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../../styles/sidebar.css';
-import {
-    List, 
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    Collapse,
-} from '@mui/material';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import { sideBarContents } from './sideBarContent';
+import SideBarItems from './sideBarItems';
 
 
-class Sidebar extends Component{
-    state = {isOpenCategories: false, isOpenShared: false}
-    handleOnClick = (id) => {
-        if(id === 0){
-            this.setState({isOpenCategories: !this.state.isOpenCategories});
-        }else{
-            this.setState({isOpenShared: !this.state.isOpenShared});
-        }
+export default function Sidebar({mobile}){
+    const handleOnClick = (e)=> {
+        alert(e.target.id);
+        return e.target.id;
     }
-    render(){
-        return (
-            <div className='Sidebar'>
-                <h1>.todoapp</h1>
-                <List>
-                    <ListItemButton>Today</ListItemButton>
-                    <ListItemButton>Weekly Pinned</ListItemButton>
-                    <ListItemButton>Pinned</ListItemButton>
-                    <ListItemButton>Categories</ListItemButton>
-                    {/* <ListItemButton onClick={() => this.handleOnClick(0)}>
-                        Categories
-                        {this.state.isOpenCategories ? <ExpandLess /> : <ExpandMore />}
-                    </ListItemButton>
-                    <Collapse in={this.state.isOpenCategories} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            <ListItemButton sx={{ pl: 4 }}>
-                                Projects
-                            </ListItemButton>
-                            <ListItemButton sx={{ pl: 4 }}>
-                                Buy Food
-                            </ListItemButton>
-                            <ListItemButton sx={{ pl: 4 }}>
-                                <ListItemIcon>
-                                    <AddOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Add New" />
-                            </ListItemButton>
-                        </List>
-                    </Collapse> */}
-                    <ListItemButton onClick={() => this.handleOnClick(1)}>
-                        Shared
-                        {this.state.isOpenShared ? <ExpandLess /> : <ExpandMore />}
-                    </ListItemButton>
-                </List>
-            </div>
-        );
-    }
+    return (
+        <>
+            {!mobile && (
+                <div className='sidebar'>
+                    <div className='sidebar-header'>
+                        <h1>.todoapp</h1>
+                        <ul className='sidebar-list'>
+                            {sideBarContents.map((item) => {
+                                return (
+                                    <SideBarItems item = {item} key={item.id} handleOnClick = {handleOnClick}/>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                </div>)}
+            {mobile && (
+                <div className='sidebar-mobile'>
+                    <div className='sidebar-header'>
+                        <h1 style={{padding: '1em 0.275em'}}>.TDA</h1>
+                        <ul className='sidebar-list'>
+                            {sideBarContents.map((item) => {
+                                return (
+                                    <SideBarItems item = {item} key={item.id} mobile={mobile} onClickItem={handleOnClick}/>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                </div>
+            )}
+        </>
+        
+    );
 };
-
-export default Sidebar;

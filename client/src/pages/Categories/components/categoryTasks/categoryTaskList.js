@@ -58,7 +58,7 @@ export default class CategoryTaskList extends CategoriesActions {
 
         const taskToDo = this.totalTaskToDo(this.state.categoryTasks);
 
-        const switchComplete = id => this.handleUpdateCategoryTask(id)
+        const switchComplete = id => this.handleUpdateCategoryTask(id, false)
 
         return ( 
             <div className='categoryTask-content'>
@@ -93,7 +93,7 @@ export default class CategoryTaskList extends CategoriesActions {
                         '& ul': { padding: 0 },
                     }}>
                         {categoryTasks.map((categoryTask) => (
-                            <TaskItem task ={categoryTask} key={categoryTask._id} checkComplete={switchComplete}/>
+                            <TaskItem task ={categoryTask} key={categoryTask._id} checkComplete={switchComplete} today={false}/>
                         ))}
                     </List>
                 }

@@ -21,6 +21,21 @@ router.get("/", async (req, res) =>{
     }
 });
 
+router.get("/today", async (req, res) =>{
+    try {
+        const tempTaskList = await Task.find();
+        const taskList = [];
+        for(let i =0; i < tempTaskList.length; i++){
+            if(tempTaskList[i].today){
+                taskList.push(tempTaskList[i]);
+            }
+        }
+        res.send(taskList);
+    } catch (error) {
+        res.send(error);
+    }
+});
+
 router.put("/:id", async (req, res) =>{
     try {
         const task = await Task.findOneAndUpdate(

@@ -1,12 +1,13 @@
 import {Component} from 'react';
-import {addNewTask, getAllTask, updateTask, deleteTask} from '../services/taskService';
+import {addNewTask, getAllTask, getTodayTask, updateTask, deleteTask} from '../services/taskService';
 
 class Tasks extends Component{
     state = {tasks: [], currentTask: "", filterList: [], editValue: ""}
 
     async componentDidMount(){
         try {
-            const {data} = await getAllTask();
+            // const {data} = await getAllTask();
+            const {data} = await getTodayTask();
             if(data != null){
                 this.setState({tasks: data, filterList: data});
             }else{
@@ -16,29 +17,40 @@ class Tasks extends Component{
             console.log(error);
         }
     }
+    
 
     handleChangeTask = ({currentTarget: input}) =>{
         this.setState({currentTask: input.value});
     }
 
-    handleAddTask = async (currentCategory) =>{
+    handleGetTodayTask = async () => {
+        try {
+            const tasks = await getTodayTask();
+            this.setState({tasks});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    handleAddTask = async (currentCategory, today) =>{
         // currentCategory.preventDefault();
         const originalTasks = this.state.tasks;
         try {
             const newTask = {
                 taskName: this.state.currentTask,
                 category: currentCategory,
+                today: today
             }
             const {data} = await addNewTask(newTask);
-            
-            const tasks = originalTasks;
-            tasks.push(data);
-            this.setState({tasks, currentTask: "", filterList: tasks});
+            console.log(data)
+            // const tasks = originalTasks;
+            // tasks.push(data);
+            // this.setState({tasks, currentTask: "", filterList: tasks});
         } catch (error) {
             console.log(error);
         }
     }
-    handleUpdateTask = async (currentTask) => {
+    handleUpdateTask = async (currentTask, today) => {
         const originalTasks = this.state.tasks;
         try {
             const tasks = [...originalTasks];
@@ -47,25 +59,37 @@ class Tasks extends Component{
             tasks[index].taskName = this.state.editValue;
             this.setState({tasks});
             await updateTask(currentTask, {taskName: this.state.editValue,});
-            const {data} = await getAllTask();
-            this.setState({filterList: data});
+            if(today){
+                const {data} = await getTodayTask();
+                this.setState({filterList: data});
+            }else{
+                const {data} = await getAllTask();
+                this.setState({filterList: data});
+            }
         } catch (error) {
             this.setState({tasks: this.state.filterList});
             console.log(error);
         }
     }
     
-    handleCheckTask = async (currentTask) => {
+    handleCheckTask = async (currentTask, today) => {
         const originalTasks = this.state.tasks;
         try {
+            
+            console.log(today)
             const tasks = [...originalTasks];
             const index = tasks.findIndex((task) => task._id === currentTask);
             tasks[index] = {...tasks[index]};
             tasks[index].completed = !tasks[index].completed;
             this.setState({tasks});
             await updateTask(currentTask, {completed: tasks[index].completed});
-            const {data} = await getAllTask();
-            this.setState({filterList: data});
+            if(today){
+                const {data} = await getTodayTask();
+                this.setState({filterList: data});
+            }else{
+                const {data} = await getAllTask();
+                this.setState({filterList: data});
+            }
         } catch (error) {
             this.setState({tasks: this.state.filterList});
             console.log(error);

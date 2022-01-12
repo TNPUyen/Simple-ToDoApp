@@ -15,7 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Dashboard() {
     return (
-        <div className="container">
+        <div >
                 <Grid container spacing={2} className="today-content">
                     <Grid item lg={8} xs={12} className="layout-padding">
                         <div className="header">

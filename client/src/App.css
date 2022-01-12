@@ -17,5 +17,10 @@ body, html{
     padding: 0 30px;
     /* height: 90vh; */
     background-color: #F2F3F7;
-    margin-left: 300px;
+    margin-left: 18.750em;
+    transition: margin-left .2s ease-in;
+}
+
+.container.mobile{
+    margin-left: 6.250em;
 }
