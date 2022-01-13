@@ -7,5 +7,6 @@ class CategoryModel{
         this.title = title;
         this.userId = userId;
         this.taskList = [];
+        this.userSharedList = [];
     }
 }

@@ -7,25 +7,25 @@ export const sideBarContents = [
     {
         id: 1,
         title: 'Today',
-        path: '/',
+        path: '/mytodo/today',
         icon: <EventAvailableIcon  sx={{ fontSize: 30}}/>
     },
     {
         id: 2,
         title: 'Categories',
-        path: '/categories',
+        path: '/mytodo/categories',
         icon: <AutoAwesomeMotionIcon sx={{ fontSize: 30 }}/>
     },
     {
         id: 3,
         title: 'Pinned',
-        path: '/pinned',
+        path: '/mytodo/pinned',
         icon: <PushPinIcon sx={{ fontSize: 30 }}/>
     },
     {
         id: 4,
         title: 'Shared',
-        path: '/shared',
+        path: '/mytodo/shared',
         icon: <ShareIcon sx={{ fontSize: 30 }}/>
     },
 ];

@@ -16,7 +16,7 @@ class TaskInput extends Tasks{
         const open = this.state.isOpen;
         return(
             <div>
-                <button type="submit" id='btn-addNew' onClick={this.handleClickOpen}><AddOutlinedIcon/></button>
+                <button  id='btn-addNew' onClick={this.handleClickOpen}><AddOutlinedIcon/></button>
                 <Dialog open={open} onClose={this.handleClose}>
                     <DialogTitle>Add new task</DialogTitle>
                     <form autoComplete="off" onSubmit={()=> this.handleAddTask("", true)}>

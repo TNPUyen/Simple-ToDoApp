@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom';
+
 import React from 'react';
 import { Tooltip } from '@mui/material';
 export default function SideBarItems({item, mobile, onClickItem}) {
     const itemOnClick = onClickItem;
+    // var isActive = this.context.router.route.location.pathname === this.props.to;
     return (
         <li className='sidebar-item'>
-            <Link to={item.path} className='sidebar-item-content'>
+            <a href={item.path} className='sidebar-item-content' >
                 {!mobile && (
                     <div className='sidebar-item-icon'>
                         {item.icon}
@@ -19,7 +20,7 @@ export default function SideBarItems({item, mobile, onClickItem}) {
                     </Tooltip>    
                 )}
                 <span>{item.title}</span>
-            </Link>
+            </a>
         </li>
     )
 }
