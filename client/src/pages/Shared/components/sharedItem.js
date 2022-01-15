@@ -1,35 +1,36 @@
-import React, { useState } from 'react';
-import {CategoriesActions} from '../../../actions/categoriesActions';
+import React, { useEffect, useState } from 'react';
 import { Dialog, Button, Grid} from '@mui/material';
-import CategoryTaskList from './categoryTasks/categoryTaskList';
 import CloseIcon from '@mui/icons-material/Close';
-import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
 import CreateIcon from '@mui/icons-material/Create';
 
 import Tooltip from '@mui/material/Tooltip';
-export default function CategoryItem ({category, onDeleted}) {
+import { SharedAction } from '../../../actions/sharedAction';
+import CategoryTaskList from '../../Categories/components/categoryTasks/categoryTaskList';
+export default function SharedItem ({category}) {
     const [isOpen, setIsOpen] = useState(false);
-    const [categoryTasks, setCategoryTasks] = useState([]);
+    const [currentCategory, setCurrentCategory] = useState(null);
+    const [categoryTask, setCategoryTask] = useState(null);
+    // useEffect(() => {
+    // console.log(category)
 
+    //     if(category !=null){
+    //         setCurrentCategory(category);
+    // console.log(currentCategory)
+
+    //     }
+    // }, [])
+    // state = {isOpen: false, categoryTasks: []};
 
     const onClickOpenCategory = async (category) => {
-        console.log(category)
-        // const temp = await CategoriesActions.handleGetCategoryTaskList(category._id); 
-        // setCategoryTasks(temp);
-        setIsOpen(true);
+        const tempTaskList = await SharedAction.handleGetSharedTaskList(category._id);
+        console.log(tempTaskList)
+        setCategoryTask(tempTaskList);
+        setIsOpen(true); 
     }
     const handleClose = () => {
-        setIsOpen(false);
+        setIsOpen(false); 
     };
-
-    const handleDeleted = async (categoryId) =>{
-        // await this.handleDeleteCategory(categoryId);
-        await onDeleted(categoryId)
-        // this.setState({isOpen: false});
-    }
-        // const category = this.props.category;
-        // const open = this.state.isOpen;
         return (
             <Grid item lg={3}>
                 <div className='categories-container' >
@@ -38,11 +39,6 @@ export default function CategoryItem ({category, onDeleted}) {
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <h2>{category.title}</h2>
                             <div style={{paddingTop: '6px'}}>
-                                <Tooltip title="Delete" >
-                                    <button aria-label="delete" className='btn-deleteCategory' onClick={() => handleDeleted(category._id)}>
-                                        <DeleteIcon />
-                                    </button>
-                                </Tooltip>
                                 <Tooltip title="Share">
                                     <button aria-label="share" className='btn-deleteCategory'>
                                         <ShareIcon />
@@ -71,19 +67,19 @@ export default function CategoryItem ({category, onDeleted}) {
                     </div>
                     
                 </div>
-                <Dialog open={isOpen} category = {category} maxWidth="xs" fullWidth>
+                <Dialog open={isOpen} category = {category} maxWidth="xs" fullWidth> 
                     <div className='categoryTask-header'>
                         <h2 style={{padding: '10px'}}>{category.title}</h2>
                         <Button
                             edge="start"
                             color="inherit"
-                            onClick={handleClose}
                             aria-label="close"
+                            onClick={handleClose}
                             >
                             <CloseIcon />
                         </Button>
                     </div>
-                    <CategoryTaskList category = {category} categoryTasks={categoryTasks} isOpened = {isOpen}/>
+                    <CategoryTaskList category = {category} categoryTasks={categoryTask} isOpened = {isOpen}/>
                 </Dialog>
                
             </Grid>

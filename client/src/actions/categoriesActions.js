@@ -1,133 +1,129 @@
-import {Component} from 'react';
 import {addNewCategory, getAllCategories, updateCategory, deleteCategory } from '../services/categoriesService';
 import { addNewCategoryTask, getCategoryTaskList, updateCategoryTask, deleteCategoryTask } from '../services/categoryTaskService';
-import { updateTask} from '../services/taskService';
 
-class CategoriesActions extends Component{
-    _isMounted = false;
-    state = {categories: [], currentCategory: "", categoryTasks: [], currentCategoryTask: ""}
 
-    async componentDidMount(){
+    // handleChangeCategory = ({currentTarget: input}) =>{
+    //     this.setState({currentCategory: input.value});
+    // }
+    const getCategoriesList = async (userId) => {
         try {
-            this._isMounted = true;
-            const {data} = await getAllCategories();
-            if(this._isMounted){
-                if(data != null){
-                    this.setState({categories: data});
+            const data = await getAllCategories(userId);
+            // if(this._isMounted){
+                if(data != []){
+                    console.log(userId)
+                    return data.categories;
                 }else{
-                    this.setState({categories:[]});
+                    return null;
                 }
-            }
+            // }
         } catch (error) {
             console.log(error);
         }
-    }
-
-    componentWillUnmount(){
-        this._isMounted = false;
-    }
-
-    handleChangeCategory = ({currentTarget: input}) =>{
-        this.setState({currentCategory: input.value});
     }
     
 
-    handleAddCategory = async () =>{
+    const handleAddCategory = async (userId, currentCategory, originalCategories) =>{
         // currentCategory.preventDefault();
-        const originalCategories = this.state.categories;
+        // const tempOriginalCategories = originalCategories;
+        console.log(userId)
         try {
             const newCategory = {
-                title: this.state.currentCategory,
+                title: currentCategory,
+                userId: userId
             }
-            const {data} = await addNewCategory(newCategory);
+            const data = await addNewCategory(newCategory);
             const categories = originalCategories;
             categories.push(data);
-            this.setState({categories, currentCategory: ""});
+            return categories;
         } catch (error) {
-            console.log(error);
+            return originalCategories;
         }
     }
 
-    handleUpdateCategory = async () =>{
+    const handleUpdateCategory = async () =>{
     }
 
-    handleDeleteCategory = async (currentCategoryId) =>{
+    const handleDeleteCategory = async (currentCategoryId) =>{
         const originalCategories = this.state.categories;
         try {
             const categories = originalCategories.filter(
                 (category) => category._id !==currentCategoryId
             );
-            await this.setState({categories});
             await deleteCategory(currentCategoryId);
+            return categories;
         } catch (error) {
-            this.setState({categories: originalCategories});
-            console.log(error);
+            return originalCategories;
         }
     }
 
     // ######-------HANDLE ACTIONS FOR CATEGORY TASK -------#######
-    handleChangeCategoryTask = ({currentTarget: input}) =>{
-        this.setState({currentCategoryTask: input.value});
-    }
-    handleGetCategoryTaskList = async (categoryId)=>{
+    // const handleChangeCategoryTask = ({currentTarget: input}) =>{
+    //     this.setState({currentCategoryTask: input.value});
+    // }
+    const handleGetCategoryTaskList = async (categoryId)=>{
         try {
-            const {data} = await getCategoryTaskList(categoryId);
+            const data = await getCategoryTaskList(categoryId);
             if(data != null){
-                this.setState({categoryTasks: data});
+                return data.categoryTaskList;
             }else{
-                this.setState({categoryTasks: []})
+                return [];
             }
         } catch (error) {
             console.log(error);
         }
     }
-    handleAddCategoryTask = async (currentCategory) =>{
+    const handleAddCategoryTask = async (userInfo, newTaskName, currentCategory, categoriesTasks) =>{
         // currentCategory.preventDefault();
-        const originalCategoriesTask = this.state.categoryTasks;
+        // const originalCategoriesTask = this.state.categoryTasks;
         try {
             const newTask = {
-                taskName: this.state.currentCategoryTask,
+                taskName: newTaskName,
+                userId: userInfo,
                 category: currentCategory
             }
             const {data} = await addNewCategoryTask(newTask);
-            const categoriesTasks = originalCategoriesTask;
+            const categoriesTasks = categoriesTasks;
             categoriesTasks.push(data);
-            this.setState({ currentCategoryTask: "", categoriesTasks});
+            return categoriesTasks;
         } catch (error) {
-            console.log(error);
+            return categoriesTasks;
         }
     }
 
-    handleUpdateCategoryTask = async (currentTask) => {
+    const handleUpdateCategoryTask = async (currentTask) => {
         const originalCategoriesTask = this.state.categoryTasks;
         try {
             const categoryTasks = [...originalCategoriesTask];
             const index = categoryTasks.findIndex((task) => task._id === currentTask);
             categoryTasks[index] = {...categoryTasks[index]};
             categoryTasks[index].completed = !categoryTasks[index].completed;
-            this.setState({categoryTasks});
             await updateCategoryTask(currentTask, {completed: categoryTasks[index].completed});
-            // const {data} = await getAllTask();
-            // this.setState({filterList: data});
+            return categoryTasks;
         } catch (error) {
             console.log(error);
         }
     }
 
-    handleDeleteCategoryTask = async (currentTask) => {
-        console.log(currentTask)
+    const handleDeleteCategoryTask = async (currentTask) => {
         const originalCategoriesTask = this.state.categoryTasks;
         try {
             const categoryTasks = originalCategoriesTask.filter(
                 (task) => task._id !==currentTask
             );
-            this.setState({categoryTasks});
             await deleteCategoryTask(currentTask);
+            return categoryTasks;
         } catch (error) {
-            this.setState({categoryTasks: originalCategoriesTask});
-            console.log(error);
+            return originalCategoriesTask;
         }
     }
-}
 
-export default CategoriesActions;
+
+export const CategoriesActions = {
+    getCategoriesList,
+    handleAddCategory,
+    handleDeleteCategory,
+    handleGetCategoryTaskList,
+    handleAddCategoryTask,
+    handleUpdateCategoryTask,
+    handleDeleteCategoryTask
+};

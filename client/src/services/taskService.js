@@ -1,7 +1,5 @@
 import axios from 'axios';
-// import { useState } from 'react';
 const apiURL =  "http://localhost:8080/api/task";
-// const [alert, setAlert] = useState(false);
 
 export function getAllTask(){
     return axios.get(apiURL);

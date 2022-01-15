@@ -10,7 +10,8 @@ const router = express.Router();
 router.post("/", async (req, res) =>{
     try {
         const newCategory = await new Category(req.body).save();
-        res.send(newCategory);
+        // const tempUser = await User.findByIdAndUpdate({_id: req.body.})
+        res.send({newCategory: newCategory});
     } catch (error) {
         res.send(error);
     }
@@ -26,7 +27,6 @@ router.post("/share", async (req, res) =>{
                 return;
             }
         }
-        console.log('ji')
         const category = await Category.findByIdAndUpdate({
             _id: req.body.categoryId
         }, {
@@ -50,15 +50,33 @@ router.post("/share", async (req, res) =>{
     }
 });
 
+// ------get all categories list------//
+// router.get("/", async (req, res) =>{
+//     try {
+//         const categories = await Category.find();
+//         res.send(categories);
+//     } catch (error) {
+//         res.send(error);
+//     }
+// });
+
 // ------get all user categories list------//
 router.get("/", async (req, res) =>{
     try {
+        const {userId} = req.query;
+        const tempList = [];
         const categories = await Category.find();
-        res.send(categories);
+        for(let i = 0; i < categories.length; i++){
+            if(categories[i].userId == userId){
+                tempList.push(categories[i]);
+            }
+        }
+        res.send({categories: tempList});
     } catch (error) {
         res.send(error);
     }
 });
+
 
 // ------get all user categories share list------//
 router.get("/sharedList", async (req, res) =>{
@@ -83,7 +101,7 @@ router.put("/:id", async (req, res) =>{
             {_id: req.params.id},
             req.body,
         );
-        res.send(category);
+        res.send({category: category});
     } catch (error) {
         res.send(error);
     }
@@ -91,14 +109,26 @@ router.put("/:id", async (req, res) =>{
 
 router.delete("/:id", async (req, res) =>{
     try {
-        var task;
+        var task, sharedId;
+        const tempUserList = await User.find();
         const tempCategory = await Category.findById(req.params.id);
-
+        for(let i = 0; i< tempCategory.userSharedList.length; i++){
+            sharedId = tempCategory.userSharedList[i];
+            for(let j = 0; j < tempUserList.length; j++){
+                await User.findByIdAndUpdate({_id: sharedId},{
+                    $pull: {
+                        sharedList: {
+                            $in: [req.params.id]
+                        }
+                    }
+                })
+            }
+        }
         for(let i = 0; i< tempCategory.taskList.length; i++){
             task = await Task.findByIdAndDelete(tempCategory.taskList[i]);
         }
         const category = await Category.findByIdAndDelete(req.params.id);
-        res.send(category);
+        res.send({message: "Delete successfully!"});
     } catch (error) {
         res.send(error);
     }

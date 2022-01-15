@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
                 taskList: [newCategoryTask._id]
             }
         });
-        res.send(newCategoryTask);
+        res.send({newCategoryTask: newCategoryTask});
     } catch (error) {
         res.send(error);
     }
@@ -32,7 +32,7 @@ router.get("/:id", async (req, res) => {
             });
             categoryTaskList.push(tempTask);
         }
-        res.send(categoryTaskList);
+        res.send({categoryTaskList: categoryTaskList});
     } catch (error) {
         res.send(error);
     }

@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/sidebar.css';
 import { sideBarContents } from './sideBarContent';
 import SideBarItems from './sideBarItems';
-import { UserContext } from '../../helpers/userContext';
 export default function Sidebar({mobile, user, isAuth}){
     const navigate = useNavigate();
     const handleOnClick = (e)=> {
@@ -11,16 +10,11 @@ export default function Sidebar({mobile, user, isAuth}){
         return e.target.id;
     }
     const handleLogout = () =>{
-        // logout().then(() => {
-        //     navigate('/');
-        //     window.location.reload();
-        // });
         isAuth();
         navigate('/');
         window.location.reload();
     }
-    const { logout } = useContext(UserContext);
-    if(user.info != ''){
+    if(user.loggedIn ){
         return (
             <>
                 {!mobile && (

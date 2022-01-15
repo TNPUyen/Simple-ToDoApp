@@ -8,7 +8,6 @@ class Tasks extends Component{
     async componentDidMount(){
         try {
             this._isMounted = true;
-            // const {data} = await getAllTask();
             const {data} = await getTodayTask();
             if(this._isMounted){
                 if(data != null){
@@ -51,9 +50,6 @@ class Tasks extends Component{
             }
             const {data} = await addNewTask(newTask);
             console.log(data)
-            // const tasks = originalTasks;
-            // tasks.push(data);
-            // this.setState({tasks, currentTask: "", filterList: tasks});
         } catch (error) {
             console.log(error);
         }

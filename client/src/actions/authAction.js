@@ -1,17 +1,6 @@
 import React, { Component } from 'react'
 import {addNewUser, login} from '../services/authService';
 
-// export default function AuthAction () {
-    // state = {userName: "", password: "", message: ""}
-
-    // export function handleOnChangeUserName ({currentTarget: input}){
-    //     this.setState({userName: input.value});
-    // }
-
-    // export function handleOnChangePassword ({currentTarget: input}){
-    //     this.setState({password: input.value});
-    // }
-
     const handleLogin = async (userName, password) => {
         try {
             const user = {
@@ -39,4 +28,3 @@ import {addNewUser, login} from '../services/authService';
         handleLogin,
         handleLogout
     }
-// }

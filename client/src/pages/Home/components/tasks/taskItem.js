@@ -3,18 +3,6 @@ import { Checkbox, ListItem, TextField } from "@mui/material";
 import Tasks from '../../../../actions/taskActions';
 
 
-// export default function TaskItem({task, checkComplete}) {
-//     return (
-//         <div className='flex task_container'>
-//             <label className={task.completed?'task active':'task'}>
-//                 <Checkbox checked={task.completed} onClick={() => checkComplete(task._id)}></Checkbox>
-//                 {task.taskName}
-//             </label>
-//             <button className='btn-edit' disabled={task.completed}>Edit</button>
-//         </div>
-//     )
-// }
-
 class TaskItem extends Tasks{
     state = {onEdit: false, editValue: ""};
     handleOnEdit = (task) => {

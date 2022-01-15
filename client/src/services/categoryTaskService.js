@@ -6,7 +6,15 @@ export function addNewCategoryTask(newTask){
 }
 
 export function getCategoryTaskList(id){
-    return axios.get(apiURL + '/' + id);
+    return axios.get(apiURL + '/' + '61dc3fbbc8dec5f72b9e0e48').then((response) => {
+        return response.data;
+    });;
+}
+
+export function getSharedTaskList(id){
+    return axios.get(apiURL + '/' + id).then((response) => {
+        return response.data;
+    });
 }
 
 export function updateCategoryTask(id, task){

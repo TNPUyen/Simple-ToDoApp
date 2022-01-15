@@ -2,19 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { UserProvider } from './helpers/userContext';
 
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <BrowserRouter>
-    <UserProvider>
       <App />
-    </UserProvider>
   </BrowserRouter>,
-  // <UserProvider>
-  //   <App />
-  // </UserProvider>,
   document.getElementById('root')
 );
 
