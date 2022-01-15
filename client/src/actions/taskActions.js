@@ -2,20 +2,28 @@ import {Component} from 'react';
 import {addNewTask, getAllTask, getTodayTask, updateTask, deleteTask} from '../services/taskService';
 
 class Tasks extends Component{
+    _isMounted = false;
     state = {tasks: [], currentTask: "", filterList: [], editValue: ""}
 
     async componentDidMount(){
         try {
+            this._isMounted = true;
             // const {data} = await getAllTask();
             const {data} = await getTodayTask();
-            if(data != null){
-                this.setState({tasks: data, filterList: data});
-            }else{
-                this.setState({tasks: [], filterList: []});
+            if(this._isMounted){
+                if(data != null){
+                    this.setState({tasks: data, filterList: data});
+                }else{
+                    this.setState({tasks: [], filterList: []});
+                }
             }
         } catch (error) {
             console.log(error);
         }
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
     
 

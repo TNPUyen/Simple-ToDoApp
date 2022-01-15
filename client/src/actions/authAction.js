@@ -32,9 +32,6 @@ import {addNewUser, login} from '../services/authService';
     };
 
     const handleLogout = () =>{
-        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-
-        console.log(userInfo)
         localStorage.removeItem('userInfo');
     }
 

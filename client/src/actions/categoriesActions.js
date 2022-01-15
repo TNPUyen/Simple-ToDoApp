@@ -4,19 +4,27 @@ import { addNewCategoryTask, getCategoryTaskList, updateCategoryTask, deleteCate
 import { updateTask} from '../services/taskService';
 
 class CategoriesActions extends Component{
+    _isMounted = false;
     state = {categories: [], currentCategory: "", categoryTasks: [], currentCategoryTask: ""}
 
     async componentDidMount(){
         try {
+            this._isMounted = true;
             const {data} = await getAllCategories();
-            if(data != null){
-                this.setState({categories: data});
-            }else{
-                this.setState({categories:[]});
+            if(this._isMounted){
+                if(data != null){
+                    this.setState({categories: data});
+                }else{
+                    this.setState({categories:[]});
+                }
             }
         } catch (error) {
             console.log(error);
         }
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     handleChangeCategory = ({currentTarget: input}) =>{

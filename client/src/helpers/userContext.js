@@ -4,30 +4,33 @@ import { useNavigate } from "react-router-dom";
 export const UserContext = createContext();
 
 export const UserProvider = ({children}) => {
-    const [user, setUser] = useState({ name: '', loggedIn: false });
-    // const navigate = useNavigate();
-    // Login updates the user data with a name parameter
-    const login = async (userName, password) => {
-        setUser((user) => ({
-            name: userName,
-            loggedIn: true,
-        }));
-        localStorage.setItem('loggedIn', user.loggedIn);
-        console.log(user.loggedIn)
+    const [user, setUser] = useState({ info: '', loggedIn: false });
+
+    // Login updates the user data 
+    const login = (userInfo) => {
+        return new Promise((response) =>{
+            setUser({
+                info: userInfo,
+                loggedIn: true,
+            });
+            localStorage.setItem('loggedIn', true);
+            response();
+        })
     };
 
     // Logout updates the user data to default
     const logout = () => {
-        setUser((user) => ({
-        name: '',
-        loggedIn: false,
-        }));
-        localStorage.removeItem('loggedIn');
-        console.log(user.loggedIn)
-
+        return new Promise((response) => {
+            setUser({
+                info: '',
+                loggedIn: false,
+            });
+            localStorage.setItem('loggedIn', false);
+            response();    
+        })
     };
     return(
-        <UserContext.Provider value={{user, login, logout}}>
+        <UserContext.Provider value={{user, login, logout, setUser}}>
             {children}
         </UserContext.Provider>
     );

@@ -5,52 +5,27 @@ import { UserContext } from '../../helpers/userContext';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AuthAction } from '../../actions/authAction';
 
-export default function Login() {
-    // const [userName, setUserName] = useState[null];
-    // const [password, setPassword] = useState[null];
-    // function handleOnChangeUserName({currentTarget: input}){
-    //     setUserName[input.value];
-    // }
+export default function Login({isAuth}) {
 
-    // function handleOnChangePassword ({currentTarget: input}){
-    //     setPassword[input.value];
-    // }
     const { login } = useContext(UserContext);
     const [userName, setUserName] = useState();
     const [password, setPassword] = useState();
     const navigate = useNavigate();
 
-    // const [ user, setUser ] = useState({loggedIn: false});
-    // const [isLogIn, setIsLogIn] = useState(false);
-    // const navigate = useNavigate();
-    // const location = useLocation();
-    // function Login(e){
-    //     e.preventDefault();
-    //     // if (user.loggedIn) return;
-    //     setUser({loggedIn:true});
-    //     console.log(user.loggedIn)
-    //     // navigate('/mytodo/today');
-    //     // window.location.reload();
-    //     // if (location.state?.from) {
-    //     //   navigate(location.state.from);
-    //     // }
-    // }
-
-    // if(user.loggedIn){
-
-    //     console.log(user.loggedIn)
-    //     return <Navigate to={'/mytodo/today'}/>
-    // }
-
+    
+    const location = useLocation();
     const Login = async (userName, password) => {
         await AuthAction.handleLogin(userName, password).then(
             (data) => {
                 console.log(data)
                 if(data.message === 'Login successfully!'){
                     // navigate("/mytodo/today");
-                    login(userName, password);
-                    <Navigate to={'/mytodo/today'}/>;
-                    window.location.reload();
+                    // login(data.user).then(() =>{
+                    //     navigate("mytodo/today");
+                    //     // window.location.reload();
+                    // });
+                    isAuth();
+                    navigate("mytodo/today");
                 }
             }
         );
